@@ -42,7 +42,6 @@ The car is a four-wheel-drive robot built around an **Arduino UNO** and an **L29
 | Bluetooth VCC / GND | 5 V / GND |
 | Battery pack (7.4 V) | Shield external power terminals, through the on/off switch |
 
-![Wiring diagram](Photo/wiring-diagram.png)
 
 ##  How It Works
 
