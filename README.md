@@ -5,29 +5,47 @@ The Smart Car project is a manually designed intelligent vehicle that combines m
 ---
 
 ##  Overview
-The car is a four-wheel-drive robot built around an Arduino board and a motor driver shield. It works in two layers: the user can drive it manually from a smartphone over Bluetooth, while an ultrasonic sensor mounted on a servo continuously monitors the path ahead and steers the car away from obstacles on its own.
+
+The car is a four-wheel-drive robot built around an **Arduino UNO** and an **L293D motor driver shield**. It works in two layers: the user can drive it manually from a smartphone over Bluetooth, while an ultrasonic sensor mounted on a servo continuously monitors the path ahead and steers the car away from obstacles on its own.
 
 ##  Features
+
 - **Smartphone control:** drive the car over Bluetooth using single-character commands.
 - **Autonomous obstacle avoidance:** detects obstacles within 12 cm, stops, and backs up slightly.
 - **Smart direction choice:** scans both sides using a servo-mounted ultrasonic sensor, compares the free distance, and turns toward the side with more space.
-- **Four-wheel drive:** four DC motors driven independently, turning by skid steering (left and right sides run in opposite directions).
+- **Four-wheel drive:** four DC gear motors driven independently, turning by skid steering (left and right sides run in opposite directions).
 - **Voice control support:** voice-command handling is included in the code and can be enabled.
 
-##  Hardware
+##  Components
 
-| Component | Details |
+| Component | Qty | Details |
+|---|---|---|
+| Microcontroller | 1 | Arduino UNO |
+| Motor driver | 1 | L293D Motor Driver Shield (Adafruit Motor Shield v1 compatible) |
+| DC gear motors | 4 | Yellow TT gear motors with wheels (M1 to M4) |
+| Ultrasonic sensor | 1 | HC-SR04 |
+| Servo motor | 1 | SG90 micro servo (9 g) |
+| Bluetooth module | 1 | HC-06 type (4-pin serial module) |
+| Battery | 2 | 18650 Li-ion 3.7 V cells in series (7.4 V) with dual battery holder |
+| Power switch | 1 | On/Off rocker switch |
+| Chassis | 1 | [Custom-designed chassis details] |
+
+##  Wiring
+
+| Part | Connection |
 |---|---|
-| Microcontroller | Arduino [Uno / Mega] |
-| Motor driver | Adafruit-style Motor Shield (AFMotor library) |
-| Motors | 4 × DC gear motors (M1 to M4) |
-| Distance sensor | Ultrasonic sensor (Trig: A1, Echo: A0) |
-| Servo motor | Rotates the sensor (signal pin 10) |
-| Wireless module | Bluetooth module [HC-05 / HC-06] |
-| Power | [Battery type and voltage] |
-| Chassis | [Custom-designed chassis details] |
+| Motors M1 to M4 | Motor shield terminals M1 to M4 |
+| Servo (signal) | Pin 10 (shield servo header) |
+| Ultrasonic Trig | A1 |
+| Ultrasonic Echo | A0 |
+| Bluetooth TX / RX | Arduino RX (pin 0) / TX (pin 1) |
+| Bluetooth VCC / GND | 5 V / GND |
+| Battery pack (7.4 V) | Shield external power terminals, through the on/off switch |
+
+![Wiring diagram](Photo/wiring-diagram.png)
 
 ##  How It Works
+
 1. The ultrasonic sensor measures the distance ahead on every program cycle.
 2. If the distance is greater than **12 cm**, the car moves forward.
 3. If an obstacle is detected, the car stops and reverses briefly.
@@ -54,16 +72,16 @@ Any Bluetooth serial controller app that sends these characters can be used.
 - **Language:** C++ (Arduino)
 - **Libraries:** `Servo.h`, `AFMotor.h` (Adafruit Motor Shield library)
 - **Main sketch:** `Ropot_._Car.ino`
-- **Precompiled firmware:** `.hex` files for Arduino Mega and standard boards are included for direct upload.
+- **Precompiled firmware:** `.hex` files are included for direct upload (use the `standard` files for Arduino UNO).
 
 ##  Getting Started
 
 1. Install the **Arduino IDE** and the **Adafruit Motor Shield (AFMotor)** library.
-2. Open `Ropot_._Car.ino` and select your board and port.
+2. Open `Ropot_._Car.ino`, select **Arduino UNO** and your port.
 3. Upload the sketch (or flash the matching `.hex` file).
 4. Pair the Bluetooth module with your phone and send the commands above.
 
-> ⚠️ Disconnect the Bluetooth module's RX/TX pins while uploading, since it shares the board's serial port.
+>  Disconnect the Bluetooth module's RX/TX wires while uploading, since they share the board's serial port.
 
 ##  Repository Structure
 
